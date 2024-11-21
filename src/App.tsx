@@ -21,6 +21,12 @@ function App() {
         </ul>
       </nav>
       <h1>Christmas store wish list</h1>
+
+      {/* loader */}
+      <section className="grid-col-12">
+        {}
+        <div></div>
+      </section>
     </>
   );
 }

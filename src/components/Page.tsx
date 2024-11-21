@@ -1,8 +1,5 @@
-export const Page = (props) => {
-  return (
-    <>
-      Page layout component
-      {props.children}
-    </>
-  );
+import { PropsWithChildren } from "react";
+
+export const Page = (props: PropsWithChildren) => {
+  return <>{props.children}</>;
 };
