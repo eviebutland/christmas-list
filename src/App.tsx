@@ -1,4 +1,17 @@
+import { useState } from "react";
+import { fetchAllImages } from "./utils/fetchImages";
+
 function App() {
+  const [images, setImages] = useState([]);
+
+  // or is first loadd
+  if (!images.length) {
+    triggerFetchImages();
+  }
+  async function triggerFetchImages() {
+    const images = await fetchAllImages();
+    setImages(images);
+  }
   return (
     <>
       <nav>
@@ -24,9 +37,24 @@ function App() {
 
       {/* loader */}
       <section className="grid-col-12">
-        {}
+        {/* loop through images into a grid */}
+        {images && <div>{images[0]?.color}</div>}
         <div></div>
       </section>
+      <footer>
+        <div>
+          <a href="https://www.pexels.com" className="text-xs">
+            Photos provided by Pexels
+          </a>
+
+          <a href="https://www.pexels.com">
+            <img
+              className="max-h-[20px]"
+              src="https://images.pexels.com/lib/api/pexels.png"
+            />
+          </a>
+        </div>
+      </footer>
     </>
   );
 }
