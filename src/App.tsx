@@ -48,13 +48,12 @@ function App() {
       </nav>
       <h1>Christmas store wish list</h1>
 
-      {/* loader */}
       {isLoading && isFirstLoad && <div>Loading</div>}
-      <section className="board-grid">
+      <section className="masonry">
         {images.map((image) => (
           <div className="item" key={image.id}>
             <img
-              className="w-auto h-auto"
+              className=" w-auto h-auto"
               src={image.urls.full}
               alt={image.alt_description}
             />
@@ -63,20 +62,7 @@ function App() {
         ))}
         <div></div>
       </section>
-      <footer>
-        <div>
-          <a href="https://www.pexels.com" className="text-xs">
-            Photos provided by Pexels
-          </a>
-
-          <a href="https://www.pexels.com">
-            <img
-              className="max-h-[20px]"
-              src="https://images.pexels.com/lib/api/pexels.png"
-            />
-          </a>
-        </div>
-      </footer>
+      <footer></footer>
     </>
   );
 }
