@@ -51,14 +51,14 @@ function App() {
       {isLoading && isFirstLoad && <div>Loading</div>}
       <section className="masonry">
         {images.map((image) => (
-          <div className="item" key={image.id}>
+          <figure className="item" key={image.id}>
             <img
               className=" w-auto h-auto"
               src={image.urls.full}
               alt={image.alt_description}
             />
             {image.color}
-          </div>
+          </figure>
         ))}
         <div></div>
       </section>
