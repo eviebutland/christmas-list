@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { fetchAllImages } from "./utils/fetchImages";
+import { MasonaryGrid } from "./components/masonary-grid";
+import { MasonaryItem } from "./components/masonary-item";
+import { Image } from "./types/images";
 
 function App() {
   const [images, setImages] = useState([]);
@@ -49,19 +52,14 @@ function App() {
       <h1>Christmas store wish list</h1>
 
       {isLoading && isFirstLoad && <div>Loading</div>}
-      <section className="masonry">
-        {images.map((image) => (
-          <figure className="item" key={image.id}>
-            <img
-              className=" w-auto h-auto"
-              src={image.urls.full}
-              alt={image.alt_description}
-            />
-            {image.color}
-          </figure>
-        ))}
-        <div></div>
-      </section>
+
+      {!isFirstLoad && (
+        <MasonaryGrid items={images}>
+          {images.map((image) => (
+            <MasonaryItem<Image> item={image} />
+          ))}
+        </MasonaryGrid>
+      )}
       <footer></footer>
     </>
   );
