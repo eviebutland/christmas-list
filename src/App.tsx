@@ -1,32 +1,31 @@
 import { useState } from "react";
-import { fetchAllImages } from "./utils/fetchImages";
+// import { fetchAllImages } from "./utils/fetchImages";
 import { MasonaryGrid } from "./components/masonary-grid";
 import { MasonaryItem } from "./components/masonary-item";
 import { Image } from "./types/images";
+import { useImageStore } from "./store/images";
+import { useShallow } from "zustand/shallow";
 
 function App() {
-  const [images, setImages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
-  // or is first loadd
-  if (!images?.length && !isLoading && isFirstLoad) {
+
+  // only access the thing you need as it will save re-rendering
+  // use shallow will make sure component only re-renders when the value it's looking at changes
+  const images = useImageStore(useShallow((state) => state.images));
+  const setImages = useImageStore((state) => state.setImages);
+
+  if (!isLoading && isFirstLoad) {
     triggerFetchImages();
   }
 
   async function triggerFetchImages() {
     setIsLoading(true);
 
-    try {
-      const images = await fetchAllImages();
+    await setImages();
 
-      console.log(images);
-      setImages(images);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsFirstLoad(false);
-      setIsLoading(false);
-    }
+    setIsFirstLoad(false);
+    setIsLoading(false);
   }
   return (
     <>
@@ -53,7 +52,7 @@ function App() {
 
       {isLoading && isFirstLoad && <div>Loading</div>}
 
-      {!isFirstLoad && (
+      {!isFirstLoad && !!images.length && (
         <MasonaryGrid items={images}>
           {images.map((image) => (
             <MasonaryItem<Image> item={image} />

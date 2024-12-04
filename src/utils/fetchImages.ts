@@ -7,8 +7,7 @@ export async function fetchAllImages() {
       },
     });
 
-
-    return await response.json();
+    return response;
   } catch (error) {
     console.log(error);
   }
