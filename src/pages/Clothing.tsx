@@ -1,24 +1,88 @@
+import { useState } from "react";
 import { Page } from "../components/Page";
+import { useClothingStore } from "../store/clothing";
+import { Loading } from "../components/Loading";
 
 // use memo
 export const Clothing = () => {
-  // collate links here & then once pages are built we can convert them to be fetched from custom API
+  // Each clothing item can have check box to update state if it's been purchased
+  const [isLoading, setIsLoading] = useState(false);
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
+  const clothes = useClothingStore((state) => state.clothes);
+  const fetchClothingItems = useClothingStore(
+    (state) => state.fetchClothingItems,
+  );
 
-  // use zustand?
+  const clothingBrands = clothes?.map((clothingItem) => clothingItem.brand);
 
   async function fetchClothingWishlist() {
     // convert to use react query?
+    setIsLoading(true);
+    setIsFirstLoad(true);
     try {
-      const response = await fetch("http://localhost:3001/clothes", {
-        method: "GET",
-      });
-      console.log(await response.json());
+      await fetchClothingItems();
+      console.log(clothes);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
+      setIsFirstLoad(false);
     }
   }
 
+  if (!isLoading && isFirstLoad) {
+    fetchClothingWishlist();
+  }
   // check if there is already data here
-  fetchClothingWishlist();
-  return <Page>Page contents here</Page>;
+  return (
+    <Page>
+      <h1>Clothes wishlist</h1>
+      {isFirstLoad && isLoading && <Loading />}
+      <div className="flex">
+        <section>
+          {clothes.map((clothingItem) => (
+            <div className="py-3" key={`clothing-item-${clothingItem.id}`}>
+              <div className="flex space-x-2 items-center">
+                <input name="purchased" type="checkbox" />
+                <a href={clothingItem.url} target="_blank">
+                  <strong>{clothingItem.title}</strong>
+                </a>
+                <div className="">
+                  {/* Change to a delete icon */}
+                  <button className="border p-2">delete</button>
+                </div>
+              </div>
+              <button>More info</button>
+            </div>
+          ))}
+        </section>
+
+        <section>
+          <h2>Add new item</h2>
+          <form>
+            <div>
+              <label>Name:</label>
+              <input className="border" type="text" />
+            </div>
+
+            <div>
+              <label htmlFor="brand">Brand:</label>
+              <select name="brand" id="brand">
+                {clothingBrands.map((brand, index) => (
+                  <option key={`brand-${index}`} value="brand">
+                    {brand}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label>URL: </label>
+              <input className="border" type="text" />
+            </div>
+          </form>
+        </section>
+      </div>
+    </Page>
+  );
 };

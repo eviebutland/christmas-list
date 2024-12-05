@@ -5,6 +5,7 @@ import { MasonaryItem } from "./components/masonary-item";
 import { Image } from "./types/images";
 import { useImageStore } from "./store/images";
 import { useShallow } from "zustand/shallow";
+import { Loading } from "./components/Loading";
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
@@ -50,7 +51,7 @@ function App() {
       </nav>
       <h1>Christmas store wish list</h1>
 
-      {isLoading && isFirstLoad && <div>Loading</div>}
+      {isLoading && isFirstLoad && <Loading />}
 
       {!isFirstLoad && !!images.length && (
         <MasonaryGrid items={images}>
