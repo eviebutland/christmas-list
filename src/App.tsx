@@ -1,11 +1,12 @@
 import { useState } from "react";
-// import { fetchAllImages } from "./utils/fetchImages";
+
 import { MasonaryGrid } from "./components/masonary-grid";
 import { MasonaryItem } from "./components/masonary-item";
 import { Image } from "./types/images";
 import { useImageStore } from "./store/images";
 import { useShallow } from "zustand/shallow";
 import { Loading } from "./components/Loading";
+import { Page } from "./components/Page";
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
@@ -29,26 +30,7 @@ function App() {
     setIsLoading(false);
   }
   return (
-    <>
-      <nav>
-        <ul className="flex justfiy-end w-full gap-3">
-          <li>
-            <a href="/wish-list">Evie's Wish list</a>
-          </li>
-          <li>
-            <a href="/food">Food</a>
-          </li>
-          <li>
-            <a href="/clothing">Clothing</a>
-          </li>
-          <li>
-            <a href="/homeware">Homeware</a>
-          </li>
-          <li>
-            <a href="/family">Family list</a>
-          </li>
-        </ul>
-      </nav>
+    <Page>
       <h1>Christmas store wish list</h1>
 
       {isLoading && isFirstLoad && <Loading />}
@@ -61,7 +43,7 @@ function App() {
         </MasonaryGrid>
       )}
       <footer></footer>
-    </>
+    </Page>
   );
 }
 

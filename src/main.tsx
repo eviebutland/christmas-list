@@ -37,9 +37,14 @@ const router = createBrowserRouter([
 ]);
 
 const root = createRoot(document.getElementById("root") as HTMLElement);
+import { NextUIProvider } from "@nextui-org/react";
 
 root.render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <NextUIProvider>
+      <main className="dark text-foreground bg-background">
+        <RouterProvider router={router} />
+      </main>
+    </NextUIProvider>
   </StrictMode>,
 );

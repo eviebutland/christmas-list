@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Page } from "../components/Page";
 import { useClothingStore } from "../store/clothing";
 import { Loading } from "../components/Loading";
-
+import { Button } from "@nextui-org/button";
 // use memo
 export const Clothing = () => {
   // Each clothing item can have check box to update state if it's been purchased
@@ -80,6 +80,8 @@ export const Clothing = () => {
               <label>URL: </label>
               <input className="border" type="text" />
             </div>
+
+            <Button>here</Button>
           </form>
         </section>
       </div>

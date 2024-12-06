@@ -57,5 +57,5 @@ Based off an ecommerce store / wish list / pinterest style
 // Products:
 // Homeware (decorations & tree)
 // Food / Groceries
-// Clothing
+// Clothing -> a form to add new items, ablity to remove items (use react-hook-form)
 // Other (books)
