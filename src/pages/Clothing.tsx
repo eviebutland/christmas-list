@@ -49,7 +49,14 @@ export const Clothing = () => {
                 </a>
                 <div className="">
                   {/* Change to a delete icon */}
-                  <button className="border p-2">delete</button>
+                  <Button
+                    size="sm"
+                    variant="bordered"
+                    color="danger"
+                    className="rounded"
+                  >
+                    Delete
+                  </Button>
                 </div>
               </div>
               <button>More info</button>
@@ -81,7 +88,7 @@ export const Clothing = () => {
               <input className="border" type="text" />
             </div>
 
-            <Button>here</Button>
+            <Button className="rounded">Add to list</Button>
           </form>
         </section>
       </div>
